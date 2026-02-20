@@ -1,0 +1,36 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: albertbasegwaporoot
+      MYSQL_DATABASE: albert_webdev
+      MYSQL_USER: albertbase
+      MYSQL_PASSWORD: albertbasegwapo
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - Events_Management_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: Events_Management_user
+      PMA_PASSWORD: Events_Management_password
+    ports:
+      - "8080:80"   
+    depends_on:
+      - mysql      
+    networks:
+      - Events_Managementt_network
+
+volumes:
+  mysql_data:
+
+
+networks:
+  webdev_apartment_network: 
